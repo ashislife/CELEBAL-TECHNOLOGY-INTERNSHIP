@@ -129,72 +129,69 @@ Run all cells sequentially to recreate the data analysis, visualizations, and mo
 -------------------------------------------<>------------------------------------------
 
 
-# 📌 Week 3 Assignment: Country Segmentation using Clustering & Ensemble Learning
+# 📌 Week 3 Assignment: Develop a Customer Intelligence System using Classification, Ensemble Learning & Clustering
 
-This folder contains the complete machine learning workflow developed during **Week 3** of the Celebal Technology Internship. The project focuses on segmenting countries based on socio-economic and health indicators to identify nations that require humanitarian aid.
+This folder contains the complete end-to-end Machine Learning workflow developed during **Week 3** of the Celebal Technology Internship. The project focuses on building an intelligent customer segmentation and classification system based on socio-economic metrics.
 
 * **Notebook File:** `week3-ashish-kumar-ipyn.ipynb`
-* **Dataset Used:** Unsupervised Learning on Country Data (167 countries, 10 features)
+* **Dataset Used:** Unsupervised Learning Dataset (167 Records, 10 Features)
 * **Environment:** Kaggle / Jupyter Notebook
-* **Best Model Accuracy:** **Random Forest Classifier (100%)** 🏁
+* **Best Performing Classifier:** **Random Forest Classifier (100% Accuracy)** 🏁
 
 ---
 
 ## 🛠️ Pipeline Steps & Implementation
 
-### 1. Data Loading & Exploration
-* Loaded the dataset containing socio-economic features like `child_mort`, `exports`, `health`, `imports`, `income`, `inflation`, `life_expec`, `total_fer`, and `gdpp`.
-* Inspected data dimensions ($167 \times 10$) and checked data types using `df.info()` and descriptive statistics via `df.describe()`.
+### 1. Data Loading & Understanding
+* Loaded and inspected the dataset using `df.head()`, `df.info()`, and `df.describe()` to map out the distribution of numerical attributes.
+* Checked dataset dimensions which contains 167 rows and 10 structural features.
 
 ### 2. Exploratory Data Analysis (EDA) & Correlation
-* **Correlation Heatmap:** Generated a full correlation matrix using `seaborn` to examine relationships between metrics.
-* **Key Insights:** * `income` and `gdpp` show a strong positive correlation.
-  * `child_mort` is strongly negatively correlated with `life_expec` and `income`.
+* **Correlation Heatmap:** Plotted a comprehensive correlation matrix using `seaborn` to check dependencies.
+* **Key Insights:** * Strong positive correlation discovered between `income` and `gdpp`.
+  * `child_mort` shows an extreme negative correlation with `life_expec` and `income`, proving to be a high-variance indicator for segmentation.
 
-### 3. Data Preprocessing & Scaling
-* Dropped the categorical `country` column as it is an identifier.
-* Applied `StandardScaler` to normalize numerical features, ensuring distance-based clustering algorithms are not dominated by large-scale features like GDP or income.
+### 3. Data Preprocessing & Feature Scaling
+* Dropped the unique categorical `country` column since it works as an identifier and doesn't add value to mathematical distance metrics.
+* Normalized all remaining numerical features using `StandardScaler` to prevent high-magnitude features (like GDP/Income) from biasedly dominating the clustering algorithms.
 
-### 4. K-Means Clustering (Optimal K Selection)
-* **Elbow Method:** Evaluated Within-Cluster Sum of Squares (WCSS) for $K$ values from 1 to 10.
-* **Clustering:** Selected **$K = 3$** as the optimal elbow point to segment countries into three logical categories:
-  * **Cluster 0:** Developed Countries (High income, high GDP, low child mortality)
-  * **Cluster 1:** Underdeveloped Countries (Low income, low GDP, high child mortality)
-  * **Cluster 2:** Developing Countries (Moderate economic and health stats)
+### 4. K-Means Clustering (Segmentation)
+* **Elbow Method:** Ran iterations from $K=1$ to $10$ plotting the Within-Cluster Sum of Squares (WCSS) to locate the ideal elbow point.
+* **Model Fitting:** Selected **$K = 3$** as the optimal configuration to segment the data into three distinct operational profiles:
+  * **Cluster 0 (Developed):** High income, high GDP, and minimal child mortality rate.
+  * **Cluster 1 (Underdeveloped):** Low income, low GDP, and severe child mortality rate.
+  * **Cluster 2 (Developing):** Average economic indicators and stable health metrics.
 
-### 5. DBSCAN Clustering (Density-Based)
-* Implemented DBSCAN to find clusters based on data density and capture outliner nations.
-* Hyperparameter tuned parameters across different ranges and finalized **`eps=1.2`** and **`min_samples=3`** to achieve meaningful density-based clusters while isolating noise points.
+### 5. Density-Based Clustering (DBSCAN)
+* Implemented DBSCAN to understand the density patterns and separate structural core groups from noisy outliers.
+* Conducted hyperparameter tuning over `eps` and `min_samples` ranges, finalizing **`eps=1.2`** and **`min_samples=3`** to extract meaningful density clusters while isolating extreme anomalies.
 
 ### 6. Classification & Ensemble Learning
-Using the K-Means cluster labels as the ground truth target variable, the data was partitioned into an **80% Train / 20% Test** split (using stratified sampling) to train supervised classifiers:
-* **Random Forest Classifier:** Evaluated with 100 estimators. Achieved a perfect **100% Accuracy** on the test set.
-* **XGBoost Classifier:** Implemented using gradient boosting. Achieved a strong **94.12% Accuracy**.
+Using the optimal K-Means cluster categories as the ground-truth target variable ($y$), the data was split into an **80% Training / 20% Testing** partition using stratified sampling:
+* **Random Forest Classifier:** Trained an ensemble of 100 decision trees. Achieved an absolute perfect **100% Accuracy** on unseen test data.
+* **XGBoost Classifier:** Implemented gradient boosting to benchmark performance, yielding a strong **94.12% Accuracy**.
 
 ### 7. Feature Importance Analysis
-* Extracted structural feature importance scores from the top-performing Random Forest model.
-* **Key Finding:** `child_mort` (25.8%) and `gdpp` (19.7%) emerged as the most critical factors influencing how countries are segmented, followed closely by `total_fer` and `life_expec`.
+* Derived the underlying feature importance matrix from the top-performing Random Forest model.
+* **Top Drivers:** `child_mort` (25.8%) and `gdpp` (19.7%) emerged as the primary split drivers determining the customer intelligence classification, followed closely by `total_fer` and `life_expec`.
 
 ---
 
-## 📊 Model Performance Summary
+## 📊 Model Performance Comparison
 
-| Model | Test Accuracy |
-| :--- | :--- |
-| **Random Forest Classifier** | **100.00%** |
-| **XGBoost Classifier** | **94.12%** |
+| Model | Test Accuracy | Precision (Weighted) | Recall (Weighted) | F1-Score (Weighted) |
+| :--- | :---: | :---: | :---: | :---: |
+| **Random Forest Classifier** | **100.00%** | **1.00** | **1.00** | **1.00** |
+| **XGBoost Classifier** | **94.12%** | **0.95** | **0.94** | **0.94** |
 
 ---
 
-## 🚀 Dependencies & How to Run
-Make sure you have the following packages installed before running the notebook:
+## 🚀 Dependencies & Installation
+Ensure you have the required ecosystem packages installed before executing the notebook pipeline:
 
 ```bash
 pip install numpy pandas matplotlib seaborn scikit-learn xgboost
 
-Open the file week3-ashish-kumar-ipyn.ipynb in Jupyter Notebook, Lab, or Kaggle.
+Open week3-ashish-kumar-ipyn.ipynb using Jupyter Notebook, Lab, or Kaggle.
 
-Run all cells sequentially to recreate the clustering profiles, classification models, and importance plots.
-
-
-
+Run all code cells sequentially to visualize the elbow plot, clustering profiles, classification metrics, and feature importance distributions.
