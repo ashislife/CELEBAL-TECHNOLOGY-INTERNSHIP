@@ -55,3 +55,72 @@ The first week focuses on building a solid foundation in mathematics, programmin
 1. Clone the repository:
    ```bash
    git clone [https://github.com/ashislife/CELEBAL-TECHNOLOGY-INTERNSHIP.git](https://github.com/ashislife/CELEBAL-TECHNOLOGY-INTERNSHIP.git)
+
+   Install the required dependencies:
+
+Bash
+pip install numpy pandas matplotlib seaborn scipy statsmodels scikit-learn joblib
+Open Jupyter Notebook/Lab or upload the files directly to Google Colab / Kaggle.
+
+Execute the cells sequentially to reproduce the analysis, visualizations, and model results.
+
+
+
+
+
+
+
+   # 📌 Week 2 Assignment: End-to-End ML Regression Pipeline
+
+This folder contains the complete Machine Learning pipeline developed during **Week 2** of the Celebal Technology Internship. The project utilizes historical Tesla data to build a predictive regression model.
+
+* **Notebook File:** `week2-ashish-kumar-ipynb.ipynb`
+* **Dataset Used:** Tesla Deliveries and Production Data (2015 - 2025)
+* **Environment:** Kaggle / Jupyter Notebook
+* **Final Model Accuracy:** **$R^2$ Score ≈ 0.989** 🏁
+
+---
+
+## 🛠️ Pipeline Steps & Implementation
+
+### 1. Data Loading & Understanding
+* Imported core analytics libraries like `numpy` and `pandas`.
+* Loaded the Tesla dataset containing 2,640 records and 12 columns (including `Year`, `Model`, `Production_Units`, `Avg_Price_USD`, `CO2_Saved_tons`, etc.).
+* Inspected dataset structure using `df.info()` and evaluated basic statistics via `df.describe()`.
+
+### 2. Exploratory Data Analysis (EDA) & Visualization
+* **Production vs Deliveries:** Created a scatter plot using `seaborn` to visualize the relationship and density between production units and estimated deliveries.
+* **Correlation Heatmap:** Generated a full correlation matrix heatmap to check multi-collinearity and dependencies among numerical features.
+
+### 3. Data Preprocessing & Feature Engineering
+* **Categorical Encoding:** Converted categorical attributes (`Region`, `Model`, `Source_Type`) into numerical integers using `LabelEncoder` from `scikit-learn`.
+* **Feature Selection:** Split the dataset into features ($X$) and target variable ($y$ - `Estimated_Deliveries`).
+* **Train-Test Split:** Segmented the data into **80% Training data** and **20% Testing data** using `train_test_split` with a fixed `random_state=42` for reproducibility.
+
+### 4. Model Building & Training
+* Implemented a **Random Forest Regressor** (`n_estimators=100`) to capture complex non-linear trends and minimize the risk of overfitting.
+
+### 5. Model Evaluation & Performance
+The model's predictions on unseen test data were evaluated using standard regression metrics:
+* **MAE (Mean Absolute Error):** ~323.46
+* **RMSE (Root Mean Squared Error):** ~409.50
+* **$R^2$ Score:** **0.9887** (Indicates that the model successfully explains 98.8% of the variance in Tesla's estimated deliveries).
+
+### 6. Feature Importance Analysis
+* Extracted feature importances from the trained Random Forest model and plotted them using a bar chart.
+* **Key Insight:** `Production_Units` emerged as the most dominant feature by a huge margin, contributing to ~99% of the model's decision-making process.
+
+### 7. Model Deployment Preparation
+* Successfully serialized and saved the final trained model object as `tesla_delivery_model.pkl` using the `joblib` library for instant future inference.
+
+---
+
+## 🚀 Dependencies & How to Run
+Make sure you have the following packages installed before running the notebook:
+
+```bash
+pip install numpy pandas matplotlib seaborn scikit-learn joblib
+
+Open the file week2-ashish-kumar-ipynb.ipynb in Jupyter Notebook, Lab, or Kaggle.
+
+Run all cells sequentially to recreate the data analysis, visualizations, and model training.
