@@ -67,7 +67,7 @@ Execute the cells sequentially to reproduce the analysis, visualizations, and mo
 
 
 
-
+------------------------------------------------<>-------------------------------------
 
 
    # 📌 Week 2 Assignment: End-to-End ML Regression Pipeline
@@ -118,9 +118,84 @@ The model's predictions on unseen test data were evaluated using standard regres
 ## 🚀 Dependencies & How to Run
 Make sure you have the following packages installed before running the notebook:
 
-```bash
+bash
 pip install numpy pandas matplotlib seaborn scikit-learn joblib
 
 Open the file week2-ashish-kumar-ipynb.ipynb in Jupyter Notebook, Lab, or Kaggle.
 
 Run all cells sequentially to recreate the data analysis, visualizations, and model training.
+
+
+
+-------------------------------------------<>------------------------------------------
+
+
+# 📌 Week 3 Assignment: Country Segmentation using Clustering & Ensemble Learning
+
+This folder contains the complete machine learning workflow developed during **Week 3** of the Celebal Technology Internship. The project focuses on segmenting countries based on socio-economic and health indicators to identify nations that require humanitarian aid.
+
+* **Notebook File:** `week3-ashish-kumar-ipyn.ipynb`
+* **Dataset Used:** Unsupervised Learning on Country Data (167 countries, 10 features)
+* **Environment:** Kaggle / Jupyter Notebook
+* **Best Model Accuracy:** **Random Forest Classifier (100%)** 🏁
+
+---
+
+## 🛠️ Pipeline Steps & Implementation
+
+### 1. Data Loading & Exploration
+* Loaded the dataset containing socio-economic features like `child_mort`, `exports`, `health`, `imports`, `income`, `inflation`, `life_expec`, `total_fer`, and `gdpp`.
+* Inspected data dimensions ($167 \times 10$) and checked data types using `df.info()` and descriptive statistics via `df.describe()`.
+
+### 2. Exploratory Data Analysis (EDA) & Correlation
+* **Correlation Heatmap:** Generated a full correlation matrix using `seaborn` to examine relationships between metrics.
+* **Key Insights:** * `income` and `gdpp` show a strong positive correlation.
+  * `child_mort` is strongly negatively correlated with `life_expec` and `income`.
+
+### 3. Data Preprocessing & Scaling
+* Dropped the categorical `country` column as it is an identifier.
+* Applied `StandardScaler` to normalize numerical features, ensuring distance-based clustering algorithms are not dominated by large-scale features like GDP or income.
+
+### 4. K-Means Clustering (Optimal K Selection)
+* **Elbow Method:** Evaluated Within-Cluster Sum of Squares (WCSS) for $K$ values from 1 to 10.
+* **Clustering:** Selected **$K = 3$** as the optimal elbow point to segment countries into three logical categories:
+  * **Cluster 0:** Developed Countries (High income, high GDP, low child mortality)
+  * **Cluster 1:** Underdeveloped Countries (Low income, low GDP, high child mortality)
+  * **Cluster 2:** Developing Countries (Moderate economic and health stats)
+
+### 5. DBSCAN Clustering (Density-Based)
+* Implemented DBSCAN to find clusters based on data density and capture outliner nations.
+* Hyperparameter tuned parameters across different ranges and finalized **`eps=1.2`** and **`min_samples=3`** to achieve meaningful density-based clusters while isolating noise points.
+
+### 6. Classification & Ensemble Learning
+Using the K-Means cluster labels as the ground truth target variable, the data was partitioned into an **80% Train / 20% Test** split (using stratified sampling) to train supervised classifiers:
+* **Random Forest Classifier:** Evaluated with 100 estimators. Achieved a perfect **100% Accuracy** on the test set.
+* **XGBoost Classifier:** Implemented using gradient boosting. Achieved a strong **94.12% Accuracy**.
+
+### 7. Feature Importance Analysis
+* Extracted structural feature importance scores from the top-performing Random Forest model.
+* **Key Finding:** `child_mort` (25.8%) and `gdpp` (19.7%) emerged as the most critical factors influencing how countries are segmented, followed closely by `total_fer` and `life_expec`.
+
+---
+
+## 📊 Model Performance Summary
+
+| Model | Test Accuracy |
+| :--- | :--- |
+| **Random Forest Classifier** | **100.00%** |
+| **XGBoost Classifier** | **94.12%** |
+
+---
+
+## 🚀 Dependencies & How to Run
+Make sure you have the following packages installed before running the notebook:
+
+```bash
+pip install numpy pandas matplotlib seaborn scikit-learn xgboost
+
+Open the file week3-ashish-kumar-ipyn.ipynb in Jupyter Notebook, Lab, or Kaggle.
+
+Run all cells sequentially to recreate the clustering profiles, classification models, and importance plots.
+
+
+
