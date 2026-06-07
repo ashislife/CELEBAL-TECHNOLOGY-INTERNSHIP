@@ -118,10 +118,8 @@ The model's predictions on unseen test data were evaluated using standard regres
 ## 🚀 Dependencies & How to Run
 Make sure you have the following packages installed before running the notebook:
 
-```bash
 pip install numpy pandas matplotlib seaborn scikit-learn joblib
 
-Bash
 Open the file week2-ashish-kumar-ipynb.ipynb in Jupyter Notebook, Lab, or Kaggle.
 
 Run all cells sequentially to recreate the data analysis, visualizations, and model training.
