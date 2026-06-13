@@ -113,8 +113,8 @@ The model's predictions on unseen test data were evaluated using standard regres
 ### 7. Model Deployment Preparation
 * Successfully serialized and saved the final trained model object as `tesla_delivery_model.pkl` using the `joblib` library for instant future inference.
 
----
 
+```bash
 ## 🚀 Dependencies & How to Run
 Make sure you have the following packages installed before running the notebook:
 
@@ -123,7 +123,7 @@ pip install numpy pandas matplotlib seaborn scikit-learn joblib
 Open the file week2-ashish-kumar-ipynb.ipynb in Jupyter Notebook, Lab, or Kaggle.
 
 Run all cells sequentially to recreate the data analysis, visualizations, and model training.
-
+```
 
 
 -------------------------------------------<>------------------------------------------
@@ -195,3 +195,89 @@ pip install numpy pandas matplotlib seaborn scikit-learn xgboost
 Open week3-ashish-kumar-ipyn.ipynb using Jupyter Notebook, Lab, or Kaggle.
 
 Run all code cells sequentially to visualize the elbow plot, clustering profiles, classification metrics, and feature importance distributions.
+```
+
+
+# 📌 Week 4 Assignment: Deep Learning Performance Analysis on CIFAR-10
+
+## 🎯 Project AIM
+* Build an image classification model on CIFAR-10.
+* Build an image classification model on CIFAR-10 and analyze performance across architectures and training strategies using both Artificial Neural Networks (ANN) and Convolutional Neural Networks (CNN).
+
+---
+
+## 🚀 Project Overview
+This repository contains the complete submission for the Week 4 Assignment, focusing on benchmarking image classification pipelines on the CIFAR-10 dataset (60,000 $32 \times 32$ color images across 10 distinct classes). 
+
+The core objective is to analyze how different network topologies interpret 2D spatial pixel data and to empirically evaluate the shift from feature extraction to severe model overfitting under extended training periods.
+
+---
+
+## 🔬 The 8-Stage Experimental Workflow
+
+The project systematically benchmarks model performance across 8 distinct sequential configurations:
+
+### 🔹 Phase 1: The ANN Baseline Limitations
+* **Experiment 0: Base ANN (10 Epochs)** Built using a flattened input vector layout. Suffered from heavy underfitting due to the absolute destruction of 2D spatial pixel correlations, setting the project's performance floor.
+* **Experiment 1: ANN + Extra Hidden Layer** Added depth via an additional Dense layer. The structural performance bottleneck remained unchanged, proving that increasing raw capacity in an ANN cannot solve its inability to extract localized spatial features.
+
+### 🔹 Phase 2: The CNN Paradigm Shift
+* **Experiment 2: Base CNN (10 Epochs)** Introduced Convolutional layers, feature maps, and Max Pooling. Preserving spatial dependencies natively caused a massive accuracy surge over the ANN baseline.
+* **Experiment 3: CNN with Expanded Filter Capacity (64-128-256)** Inflated channel dimensions to evaluate the network's ability to capture complex, high-level geometric patterns (edges, shapes, orientations).
+* **Experiment 4: CNN Extended Training (20 Epochs)** **The Overfitting Threshold.** Running the unregularized network for 20 epochs caused training accuracy to jump to 94.8% while validation performance completely stagnated and validation loss exploded.
+
+### 🔹 Phase 3: Advanced Regularization & Defenses
+* **Experiment 5: CNN + Early Stopping Callback** Implemented dynamic monitoring on validation loss (`patience=3`) to automatically halt training prior to model divergence, protecting generalizability.
+* **Experiment 6: CNN + Live Data Augmentation** Introduced random runtime geometric transformations (Horizontal Flips, Rotations, Zooms) to prevent pixel location memorization.
+* **Experiment 7: Improved CNN (The Ultimate Regularized Network)** An all-in-one defensive architecture combining an advanced deep CNN with **Batch Normalization** after every block, **L2 Weight Regularization** to penalize large weights, and **Heavy Dropout (0.5)** to enforce feature redundancy.
+
+---
+
+## 📊 Final Performance Benchmarking
+
+| Stage | Model Architecture / Strategy | Test Accuracy | Generalization Status |
+| :---: | :--- | :---: | :--- |
+| **0** | Base ANN (10 Epochs) | `0.4280` (42.80%) | Underfitting (Incapable of capturing spatial patterns) |
+| **1** | ANN + Extra Hidden Layer | `0.4317` (43.17%) | Structurally bottlenecked by flattening image arrays |
+| **2** | Base CNN (10 Epochs) | `0.7249` (72.49%) | Strong feature extraction, but highly prone to overfitting |
+| **3** | CNN (64-128-256 Filters) | `0.7262` (72.62%) | Higher filter capacity, but plateaus without regularization |
+| **4** | CNN (Extended to 20 Epochs) | `0.7286` (72.86%) | **Severe Overfitting** (Train Acc: 94.8% vs Test: 72%) |
+| **5** | CNN + EarlyStopping | `0.7005` (70.05%) | Successfully halts training prior to heavy divergence |
+| **6** | CNN + Data Augmentation | `0.6953` (69.53%) | High generalization, but limited by shallow network size |
+| **7** | 🏆 **Improved CNN (Final)** | **`0.7064` (70.64%)** | **Best & Most Robust Model** (Zero overfitting, stable loss curves) |
+
+---
+
+## 🎯 Key Architectural Takeaways
+
+### 1. Spatial Retention is Paramount
+Flattening multidimensional image arrays strips away neighboring pixel contexts. CNNs use shared-weight filters across local receptive fields to natively map coordinate hierarchies, making them fundamentally superior to traditional feed-forward networks for vision tasks.
+
+### 2. High Training Metrics Can Be Deceptive
+A high training score (such as the **94.82%** observed in Experiment 4) is frequently an illusion of success. Without optimization safety rails, the network becomes a simple look-up table, making it fail completely on unseen real-world test sets.
+
+### 3. The Generalization Victory
+Our final **Improved CNN** model represents the most robust system. By enforcing simultaneous mathematical constraints (L2 penalty stabilizes weights, Dropout introduces redundancy, and Augmentation forces spatial abstraction), the training loss ($1.32$) and validation loss ($1.32$) converged in perfect harmony, making it ready for reliable deployment on unseen datasets.
+
+## 📐 Project Pipeline & Architecture Workflow
+The repository maps a systematic approach divided into three progressive execution blocks:
+
+Dataset (CIFAR-10) ➔ 1. Flat Vectors ➔ Linear Dense Layers ➔ [ANN Baseline]
+                     ➔ 2. 2D Tensor Grid ➔ Conv2D + Pooling Layers ➔ [CNN Capacity Shift]
+                     ➔ 3. Augmentation ➔ BatchNorm ➔ L2 + Dropout ➔ [Improved CNN Final]
+
+---
+
+## 🚀 Dependencies & Installation
+Ensure you have the required ecosystem packages installed before executing the notebook pipeline:
+
+```bash
+pip install tensorflow numpy pandas matplotlib
+
+
+
+
+
+
+
+
