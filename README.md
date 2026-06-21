@@ -273,6 +273,69 @@ Ensure you have the required ecosystem packages installed before executing the n
 
 ```bash
 pip install tensorflow numpy pandas matplotlib
+```
+
+
+
+-------------------------------------------<>------------------------------------------
+
+# 📌 Week 5 Assignment: Sequential Text Generation using RNN, LSTM, and GRU
+ 
+## 🎯 Project AIM
+* Build and compare sequential text generation models using recurrent architectures.
+* Benchmark **Vanilla RNN**, **LSTM**, and **GRU** networks on their ability to preserve semantic context and track loss optimization over extended training.
+
+## 🚀 Project Overview
+This folder contains the complete deep learning pipeline developed during *Week 5* of the Celebal Technology Internship. The project focuses on natural language processing (NLP) and sequential text generation. Using a custom AI and Deep Learning-focused text corpus, the models are trained to predict subsequent tokens and generate cohesive text expansions from a given seed phrase.
+
+- *Notebook File:* `week5_Ashish_Kumar_ipynb.ipynb`
+- *Environment:* Google Colab / Jupyter Notebook
+- *Key Frameworks:* TensorFlow, Keras, NumPy, Matplotlib
+
+## 🛠️ Pipeline Steps & Implementation
+
+### 1. Text Preprocessing & Tokenization
+* **Corpus Processing:** Text sequences from an AI/Deep Learning dataset are cleaned, normalized to lowercase, and split into individual sentences.
+* **Tokenization:** Text is mapped into unique integer indices using Keras `Tokenizer`, creating a structured vocabulary of 239 unique words.
+* **N-gram Generation:** Input phrases are broken down into progressive $n$-gram sequences to set up a supervised learning problem (predicting the next word given previous words).
+* **Padding:** Applied pre-padding using `pad_sequences` to ensure uniform length across all training vectors ($X \in \mathbb{R}^{418 \times 11}$).
+
+### 2. Model Architecture & Hyperparameter Tuning
+To ensure robust capacity and avoid trivial repetitive predictions, the models were upgraded with enhanced capacities:
+* **Embedding Layer:** Dimensionality expanded to **64** to build rich semantic word vectors.
+* **Recurrent Units:** Hidden layer units increased to **128** across all recurrent blocks.
+* **Optimization:** Models optimized using the `Adam` optimizer against `sparse_categorical_crossentropy` loss across **200 epochs**.
+
+### 3. Evaluated Architectures
+* **Vanilla RNN (`SimpleRNN`):** Serves as the structural baseline. Highly prone to vanishing gradients, making long-range memory retention difficult.
+* **LSTM (`LSTM`):** Uses input, forget, and output gates along with a cell state to selectively maintain long-term context.
+* **GRU (`GRU`):** A streamlined variant of LSTM that merges cell and hidden states via reset and update gates, providing efficient training parameters.
+
+## 📊 Final Performance Benchmarking
+
+### Training Loss & Convergence
+* **LSTM & GRU** demonstrated efficient optimization curves, dropping loss significantly and capturing structural text patterns effectively.
+* **Vanilla RNN** optimized successfully for short-range transitions but displayed slightly higher variance and less stable context retention.
+
+### Sample Inference (Seed Phrase: *"deep learning"*)
+The models were tasked to evaluate context generation by predicting the next **10 words**:
+
+| Model Architecture | Generated Text Output | Generalization Status |
+| :--- | :--- | :--- |
+| **Vanilla RNN** | `deep learning systems are widely used in speech recognition applications and make` | Capable of local transitions; lacks deep semantic structure. |
+| **LSTM** | `deep learning allows computers to learn patterns from large amounts of data` | Excellent text flow; successfully preserves long-range context. |
+| **GRU** | `deep learning experiments require careful tuning of epochs and hidden units tokens` | Highly accurate and coherent; computationally efficient convergence. |
+
+## 🚀 Dependencies & Installation
+Ensure you have the required deep learning ecosystem packages installed before executing the notebook pipeline:
+
+```bash
+pip install tensorflow numpy matplotlib
+```
+How to Run
+Open the file week5_Ashish_Kumar_ipynb.ipynb in Jupyter Notebook, Lab, or Google Colab.
+
+Execute all cells sequentially to view token mapping, train the recurrent models, plot the loss convergence charts, and check the live text generation outputs
 
 
 
