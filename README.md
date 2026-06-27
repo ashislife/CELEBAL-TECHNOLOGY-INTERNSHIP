@@ -338,7 +338,48 @@ Open the file week5_Ashish_Kumar_ipynb.ipynb in Jupyter Notebook, Lab, or Google
 Execute all cells sequentially to view token mapping, train the recurrent models, plot the loss convergence charts, and check the live text generation outputs
 
 
+-------------------------------------------<>------------------------------------------
 
+# 📌 Week 6 Assignment: Build a deep learning model that can remove noise from images using an autoencoder on MNIST
+
+- **Notebook File:** `week6-ashish-kumar-ipynb.ipynb`
+- **Dataset Used:** MNIST Handwritten Digits (60,000 Train / 10,000 Test)
+- **Environment:** Google Colab / Jupyter Notebook
+- **Core Architecture:** Convolutional Autoencoder (Encoder-Decoder Network) 🏁
+
+## 🛠️ Pipeline Steps & Implementation
+
+### 1. Data Loading & Preprocessing
+* Loaded the MNIST dataset containing 28x28 grayscale images of handwritten digits.
+* Normalized pixel values from `[0, 255]` to `[0, 1]` to ensure stable gradient descent during training.
+* Reshaped the arrays to `(28, 28, 1)` to explicitly include the single channel dimension required by CNN layers.
+
+### 2. Synthetic Noise Injection
+* Added random Gaussian noise to both training and testing datasets controlled by a `noise_factor = 0.3`.
+* Handled pixel overflow using `np.clip` to guarantee all noisy pixel values remain strictly within the valid mathematical range of `[0, 1]`.
+
+### 3. Autoencoder Architecture Design
+The network is split into two perfectly symmetrical pipelines using the Keras Functional API:
+* **The Encoder:** Consists of structural `Conv2D` layers (32 and 16 filters respectively with ReLU activation) paired with `MaxPooling2D` to progressively compress spatial dimensions into a low-dimensional latent space.
+* **The Decoder:** Utilizes `Conv2D` layers paired with `UpSampling2D` to reconstruct the original $28 \times 28$ resolution. The final layer uses a `sigmoid` activation function to output clear pixel intensities.
+
+### 4. Model Training & Optimization
+* **Loss Function:** Compiled using `binary_crossentropy` because pixel values are treated as independent probabilities between 0 and 1.
+* **Optimizer:** Optimized using the `adam` optimizer for efficient learning rate management.
+* Trained the model for **10 epochs** with a robust batch size of **128**, mapping noisy images as features ($X$) and original clean images as targets ($Y$).
+
+### 5. Visual Evaluation & Results
+* Used `matplotlib` to plot a comparative layout showcasing three distinct states: **Original Clean Images**, **Noisy Input Images**, and **Model-Reconstructed Denoised Images**.
+* The model successfully filters out high-frequency Gaussian noise while safely preserving the core structural lines and identity of the handwritten digits.
+
+## 📊 Performance Summary
+* **Training Loss:** Dropped consistently down to ~`0.0819` by the final epoch.
+* **Validation Loss:** Stabilized near ~`0.0810`, proving excellent generalization with zero signs of overfitting.
+
+## 🚀 Dependencies & Installation
+Ensure you have the required deep learning packages installed before running the pipeline:
+```bash
+pip install tensorflow numpy matplotlib
 
 
 
