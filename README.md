@@ -380,6 +380,146 @@ The network is split into two perfectly symmetrical pipelines using the Keras Fu
 Ensure you have the required deep learning packages installed before running the pipeline:
 ```bash
 pip install tensorflow numpy matplotlib
+```
+
+# 📌 Week 7 Assignment: Develop a simple Retrieval-Augmented Generation (RAG) system to answer questions from custom documents. Build a pipeline that retrieves relevant information from a document and uses a language model to generate answers
+
+A Retrieval-Augmented Generation (RAG) based chatbot that allows users to ask questions about YouTube video content and get context-aware answers using LLMs, embeddings, and vector search.
+
+---
+
+## 🚀 Project Overview
+
+This project extracts transcripts from YouTube videos, converts the text into vector embeddings, stores them in a vector database, and uses a Large Language Model (LLM) to answer user queries based on the video content.
+
+Instead of generating generic answers, the chatbot retrieves relevant chunks from the transcript and uses them as context for more accurate responses.
+
+---
+
+## ⚙️ Tech Stack
+
+- Python
+- LangChain
+- Google Gemini / LLM
+- Jina AI Embeddings
+- FAISS (Vector Store)
+- YouTube Transcript API
+- Jupyter Notebook
+
+---
+
+## 🧠 Working Flow
+
+1. User provides a YouTube video URL  
+2. Video transcript is extracted  
+3. Transcript is split into smaller chunks  
+4. Text chunks are converted into embeddings  
+5. Embeddings are stored in FAISS vector database  
+6. User asks questions  
+7. Relevant chunks are retrieved using similarity search  
+8. LLM generates final answer using retrieved context  
+
+---
+
+## 📂 Project Structure
+
+```bash
+RAG-based-YouTube-chatbot/
+│
+├── youtube_chatbot_RAG.ipynb
+├── README.md
+├── .gitignore
+└── LICENSE
+```
+
+---
+
+## 🔥 Features
+
+- Chat with YouTube videos
+- Semantic search over transcript
+- Context-aware answers
+- Fast retrieval using vector search
+- RAG pipeline implementation
+
+---
+
+## 🛠 Installation
+
+Clone repository:
+
+```bash
+git clone https://github.com/ashislife/RAG-based-YouTube-chatbot.git
+cd RAG-based-YouTube-chatbot
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 🔑 Environment Variables
+
+Create a `.env` file:
+
+```env
+GOOGLE_API_KEY=your_google_api_key
+JINA_API_KEY=your_jina_api_key
+```
+
+---
+
+## ▶️ Usage
+
+Run the notebook:
+
+```bash
+jupyter notebook
+```
+
+Open:
+
+```bash
+youtube_chatbot_RAG.ipynb
+```
+
+Provide:
+- YouTube URL
+- Your question about the video
+
+Example:
+
+```text
+Summarize the main topic of this video
+```
+
+---
+
+## Example Queries
+
+- What is this video about?
+- Summarize the content
+- Explain key concepts
+- What are the main takeaways?
+
+---
+
+
+## Learning Outcomes
+
+This project helped in understanding:
+
+- RAG pipeline
+- Embeddings
+- Vector Databases
+- Prompt Engineering
+- LLM integration with LangChain
+
+---
+
 
 
 
