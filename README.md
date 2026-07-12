@@ -522,6 +522,214 @@ This project helped in understanding:
 
 
 
+-------------------------------------------<>------------------------------------------
 
+# 📌 Week 8 Assignment: Single Agent Pipeline Project 
+
+A rule-based **Single Agent Smart Assistant** developed as part of the **Week 8 Assignment**. The agent understands user queries, identifies their intent using conditional routing, invokes the appropriate tool, and returns structured JSON responses.
+
+---
+
+## 📌 Problem Statement
+
+Build a Single-Agent Smart Assistant that:
+
+- Understands user queries
+- Routes requests based on intent
+- Uses tools when required
+- Returns structured JSON output
+
+---
+
+## ✨ Features
+
+- Intent-based query routing
+- Calculator Tool for mathematical expressions
+- Keyword Extraction Tool
+- Word Count Tool
+- General query handling
+- Structured JSON responses
+- Logging for execution tracking
+- Basic error handling using `try-except`
+
+---
+
+## 🛠️ Technologies Used
+
+- Python
+- Google Colab
+- Logging Module
+
+---
+
+## 🧩 Agent Workflow
+
+```text
+User Query
+      │
+      ▼
+Single Agent
+      │
+      ├── Math Query ─────────► Calculator Tool
+      │
+      ├── Keyword Query ──────► Keyword Extraction Tool
+      │
+      ├── Word Count Query ───► Word Count Tool
+      │
+      └── Other Query ────────► General Response
+      │
+      ▼
+Structured JSON Output
+```
+
+---
+
+## 📂 Tools Implemented
+
+### 🧮 Calculator Tool
+Evaluates mathematical expressions.
+
+**Example**
+
+```python
+Calculate 20 + 5
+```
+
+Output
+
+```json
+{
+  "type": "calculation",
+  "result": 25
+}
+```
+
+---
+
+### 🔑 Keyword Extraction Tool
+
+Extracts important keywords from a sentence.
+
+**Example**
+
+```python
+Extract keywords from Artificial Intelligence is transforming industries
+```
+
+Output
+
+```json
+{
+  "type": "keywords",
+  "result": [
+    "artificial",
+    "intelligence",
+    "transforming",
+    "industries"
+  ]
+}
+```
+
+---
+
+### 📝 Word Count Tool
+
+Counts the number of words in a sentence.
+
+**Example**
+
+```python
+Count words Machine learning is transforming healthcare
+```
+
+Output
+
+```json
+{
+  "type": "word_count",
+  "result": 6
+}
+```
+
+---
+
+## 🔀 Conditional Routing
+
+The agent routes queries based on intent:
+
+- **Math Queries** → Calculator Tool
+- **Keyword Queries** → Keyword Extraction Tool
+- **Word Count Queries** → Word Count Tool
+- **Other Queries** → General Response
+
+---
+
+## ⚠️ Error Handling
+
+The agent uses `try-except` blocks to:
+
+- Handle invalid mathematical expressions
+- Prevent unexpected runtime errors
+- Return meaningful error messages
+
+---
+
+## 📊 Logging
+
+Logging is implemented to monitor:
+
+- Incoming user queries
+- Routing decisions
+- Tool execution
+- Errors during processing
+
+---
+
+## 🧪 Sample Test Queries
+
+```python
+Calculate 20 + 5
+
+Extract keywords from Artificial Intelligence is transforming industries
+
+Count words Machine learning is transforming healthcare
+
+What is machine learning?
+```
+
+---
+
+## 📁 Project Structure
+
+```
+week-8-single-agent-pipeline/
+│
+├── week_8_assignment.ipynb
+├── README.md
+└── screenshots/
+```
+
+---
+
+## 🎯 Learning Outcomes
+
+- Single Agent Architecture
+- Conditional Routing
+- Tool Calling
+- Structured JSON Responses
+- Logging
+- Error Handling
+- Rule-Based Intelligent Workflow
+
+---
+
+## ✅ Conclusion
+
+This Week 8 Assignment demonstrates the implementation of a rule-based Single Agent Pipeline capable of routing user queries to different tools based on intent. The project showcases the fundamental concepts of agent workflows, tool integration, structured outputs, logging, and robust error handling.
+
+---
+```
+
+ 
 
 
